@@ -2,10 +2,12 @@
 
 #### Task Description: [link](https://bettermode.notion.site/Senior-Backend-Engineer-1264dc460e6d807399c8cff16be8de4d)
 #### Tech Stack Requirements:
- - Language:vTypeScript
+ - Language: TypeScript
  - Framework: NestJS (or other NodeJS frameworks like ExpressJS)
- - Database: MongoDb (If i develop this task in real project i will use PostgreSQL)
+ - Database: MongoDb (If I develope this task in real project i will use PostgreSQL)
  - API: GraphQL 
+
+also there is .env file to little config to connect database
 
 ### What we did?
   During this implementation I tried to just create based on `gql` that task ask us not more.
@@ -20,6 +22,8 @@
   - We could create `DockerFile` to simple run (project is simple and we just need to run MongoDB)
   - We could create `DockerCompose` to simple run (project is simple and we just need to run MongoDB)
   - We could create `Test with Jest`, but i didn't see to do that inside the task explanation.
+  - We could create `Const Value`, for @InputType and @ObjectType names.
+  - ...
 
 ## Project setup
 
