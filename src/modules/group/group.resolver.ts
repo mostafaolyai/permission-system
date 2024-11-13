@@ -7,7 +7,10 @@ import { CreateGroupDto } from './dtos/create-group.dto';
 export class GroupResolver {
   constructor(private readonly groupService: GroupService) {}
 
-  @Mutation(() => GroupDto)
+  @Mutation(() => GroupDto, {
+    description:
+      'This is just an example description to show we can add more details for Query or Mutation',
+  })
   async createGroup(@Args('input') args: CreateGroupDto): Promise<GroupDto> {
     return this.groupService.createGroup(args.userIds, args.groupIds);
   }

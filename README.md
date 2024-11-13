@@ -9,6 +9,8 @@
 
 also there is .env file to little config to connect database
 
+#### I added example description for `createGroup` Mutation and `CreateGroupDto` just to show that we can add more details in `GraphQL Playground`.
+
 ### What we did?
   During this implementation I tried to just create based on `gql` that task ask us not more.
   There were some conflicts, for example:

@@ -9,6 +9,10 @@ input CanEditTweet {
 
 input CreateGroup {
   groupIds: [String!]!
+
+  """
+  this is just an example description to show we can add more details for each field
+  """
   userIds: [String!]!
 }
 
@@ -41,6 +45,9 @@ type Group {
 }
 
 type Mutation {
+  """
+  This is just an example description to show we can add more details for Query or Mutation
+  """
   createGroup(input: CreateGroup!): Group!
   createTweet(input: CreateTweet!): Tweet!
   updateTweetPermission(input: UpdateTweetPermissions!): Boolean!
