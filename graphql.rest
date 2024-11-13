@@ -1,0 +1,18 @@
+#createGroup
+curl 'http://localhost:3000/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data-binary '{"query":"# Write your query or mutation here\nmutation createGroup{\n  createGroup(input:{\n    groupIds:[\"1\", \"2\"]\n    userIds:[\"6\", \"7\"]\n    }){\n      id\n      userIds\n      groupIds\n    }\n}"}' --compressed
+
+###
+#createTweet
+curl 'http://localhost:3000/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data-binary '{"query":"mutation createTweet{\n  createTweet(input:{\n    authorId:\"1\", \n\t\tcategory: News, \n    content:\"test4\",\n  }){\n    authorId\n    category\n    content\n  }\n}"}' --compressed
+
+###
+#paginatedTweet
+curl 'http://localhost:3000/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data-binary '{"query":"query paginatedTweet{\n  paginatedTweet(input:{\n    authorId:\"1\"\n    limit:2\n    page:1\n    filters:{\n      content:\"test4\"\n    }\n  }){\n    nodes{\n      id\n      authorId\n      content\n    }\n    hasNextPage\n  }\n}"}' --compressed
+
+###
+#updateTweetPermission
+curl 'http://localhost:3000/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data-binary '{"query":"mutation updateTweetPermission{\n  updateTweetPermission(input:{\n    tweetId:\"6734d1c7d3e278485089dbb5\",\n    inheritEditPermissions:true,\n    inheritViewPermissions:false,\n    viewPermissions:[\"3\",\"4\",\"5\",\"6\"],\n    editPermissions:[\"4\",\"6\",\"9\", \"3\"]\n  })\n}"}' --compressed
+
+###
+#canEditTweet
+curl 'http://localhost:3000/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data-binary '{"query":"query canEditTweet{\n  canEditTweet(input:{\n    tweetId:\"6734d1c7d3e278485089dbb5\", \n    userId:\"3\"\n  })\n}"}' --compressed

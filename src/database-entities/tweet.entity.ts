@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, ObjectId, ObjectIdColumn } from 'typeorm';
 import { TweetCategory } from '../enums/tweet-category.enum';
 
 @Entity()
 export class Tweet {
-  @PrimaryGeneratedColumn()
-  id?: string;
+  @ObjectIdColumn()
+  _id: ObjectId;
 
   @Column()
   authorId: string;

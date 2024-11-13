@@ -7,6 +7,9 @@ import { PermissionModule } from './modules/permission/permission.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { Group } from './database-entities/group.entity';
+import { Tweet } from './database-entities/tweet.entity';
+import { Permission } from './database-entities/permission.entity';
 
 @Module({
   imports: [
@@ -16,6 +19,8 @@ import { join } from 'path';
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
       database: process.env.DB_NAME,
+      entities: [Group, Tweet, Permission],
+      synchronize: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

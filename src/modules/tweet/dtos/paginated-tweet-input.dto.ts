@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { FilterTweetDto } from './filter-tweet.dto';
 
 @InputType('PaginatedTweetInput')
@@ -19,6 +19,7 @@ export class PaginatedTweetInputDto {
   @Field(() => Number)
   page: number;
 
-  @Field(() => FilterTweetDto)
+  @Field(() => FilterTweetDto, { nullable: true })
+  @IsOptional()
   filters: FilterTweetDto;
 }

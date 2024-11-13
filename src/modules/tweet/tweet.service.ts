@@ -5,16 +5,41 @@ import { Repository } from 'typeorm';
 import { CreateTweetDto } from './dtos/create-tweet.dto';
 import { PaginatedTweetInputDto } from './dtos/paginated-tweet-input.dto';
 import { PaginatedTweetDto } from './dtos/paginated-tweet.dto';
+import { PermissionService } from '../permission/permission.service';
 
 @Injectable()
 export class TweetService {
   constructor(
     @InjectRepository(Tweet)
     private readonly tweetRepository: Repository<Tweet>,
+    private readonly permissionRepository: PermissionService,
   ) {}
 
-  async createTweet(createTweetDto: CreateTweetDto): Promise<Tweet> {
-    return this.tweetRepository.save(createTweetDto as Tweet);
+  async createTweet(args: CreateTweetDto): Promise<Tweet> {
+    const tweet = this.tweetRepository.create(args);
+    const createdTweet = await this.tweetRepository.save(tweet);
+
+    const inheritPermission = !!args.parentTweetId;
+    const viewPermissions = [];
+    const editPermissions = [];
+    if (inheritPermission) {
+      const permission =
+        await this.permissionRepository.findPermissionByTweetId(
+          args.parentTweetId,
+        );
+      if (permission) {
+        viewPermissions.push(...permission.viewPermissions);
+        editPermissions.push(...permission.editPermissions);
+      }
+    }
+    await this.permissionRepository.updateTweetPermissions({
+      tweetId: createdTweet._id.toHexString(),
+      inheritEditPermissions: inheritPermission,
+      inheritViewPermissions: inheritPermission,
+      viewPermissions: [args.authorId, ...viewPermissions],
+      editPermissions: [args.authorId, ...editPermissions],
+    });
+    return createdTweet;
   }
 
   async paginatedTweet(

@@ -42,6 +42,9 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 ```
-
+## Use Rest Client Extention
+ install => [link](https://open.vscode.dev/Huachao/vscode-restclient)
+ then open the `graphql.rest` file inside the root
+ 
 ## Playground Link
  ### http://localhost:3000/graphql

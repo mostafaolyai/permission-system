@@ -60,7 +60,7 @@ type PaginatedTweet {
 
 input PaginatedTweetInput {
   authorId: String!
-  filters: FilterTweet!
+  filters: FilterTweet
   limit: Float!
   page: Float!
 }

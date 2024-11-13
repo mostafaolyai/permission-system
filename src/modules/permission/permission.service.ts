@@ -13,7 +13,9 @@ export class PermissionService {
   ) {}
 
   async findPermissionByTweetId(tweetId: string): Promise<Permission> {
-    return this.permissionRepository.findOne({ where: { tweetId: tweetId } });
+    return this.permissionRepository.findOne({
+      where: { tweetId: tweetId },
+    });
   }
 
   async updateTweetPermissions(
@@ -21,8 +23,25 @@ export class PermissionService {
   ): Promise<boolean> {
     const permission = await this.findPermissionByTweetId(args.tweetId);
 
-    const updated = await this.permissionRepository.update(permission.id, args);
-    return !!updated;
+    let res;
+    if (permission) {
+      res = await this.permissionRepository.update(
+        permission._id.toHexString(),
+        {
+          ...args,
+          editPermissions: Array.from(
+            new Set([...permission.editPermissions, ...args.editPermissions]),
+          ),
+          viewPermissions: Array.from(
+            new Set([...permission.viewPermissions, ...args.viewPermissions]),
+          ),
+        },
+      );
+    } else {
+      const per = this.permissionRepository.create(args);
+      res = await this.permissionRepository.save(per);
+    }
+    return !!res;
   }
 
   async canEditTweet(args: CanEditTweetDto): Promise<boolean> {

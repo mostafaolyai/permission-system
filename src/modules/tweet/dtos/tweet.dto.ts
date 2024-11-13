@@ -1,10 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { TweetCategory } from '../../../enums/tweet-category.enum';
+import { ObjectId } from 'typeorm';
 
 @ObjectType('Tweet')
 export class TweetDto {
-  @Field(() => String)
-  id?: string;
+  @Field(() => String, { name: 'id' })
+  _id: ObjectId;
 
   @Field(() => String)
   authorId: string;

@@ -12,6 +12,6 @@ export class GroupResolver {
       'This is just an example description to show we can add more details for Query or Mutation',
   })
   async createGroup(@Args('input') args: CreateGroupDto): Promise<GroupDto> {
-    return this.groupService.createGroup(args.userIds, args.groupIds);
+    return this.groupService.createGroup(args);
   }
 }
