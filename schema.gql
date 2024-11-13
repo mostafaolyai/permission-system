@@ -1,0 +1,90 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CanEditTweet {
+  tweetId: String!
+  userId: String!
+}
+
+input CreateGroup {
+  groupIds: [String!]!
+  userIds: [String!]!
+}
+
+input CreateTweet {
+  authorId: String!
+  category: TweetCategory
+  content: String!
+  hashtags: [String!]
+  location: String
+  parentTweetId: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input FilterTweet {
+  category: TweetCategory
+  content: String
+  hashtags: String
+  location: String
+  parentTweetId: String
+}
+
+type Group {
+  groupIds: [String!]!
+  id: String!
+  userIds: [String!]!
+}
+
+type Mutation {
+  createGroup(input: CreateGroup!): Group!
+  createTweet(input: CreateTweet!): Tweet!
+  updateTweetPermission(input: UpdateTweetPermissions!): Boolean!
+}
+
+type PaginatedTweet {
+  hasNextPage: Boolean!
+  nodes: [Tweet!]!
+}
+
+input PaginatedTweetInput {
+  authorId: String!
+  filters: FilterTweet!
+  limit: Float!
+  page: Float!
+}
+
+type Query {
+  canEditTweet(input: CanEditTweet!): Boolean!
+  paginatedTweet(input: PaginatedTweetInput!): PaginatedTweet!
+}
+
+type Tweet {
+  authorId: String!
+  category: TweetCategory
+  content: String!
+  createdAt: DateTime!
+  hashtags: [String!]
+  id: String!
+  location: String
+  parentTweetId: String
+}
+
+enum TweetCategory {
+  Finance
+  News
+  Sport
+  Tech
+}
+
+input UpdateTweetPermissions {
+  editPermissions: [String!]!
+  inheritEditPermissions: Boolean!
+  inheritViewPermissions: Boolean!
+  tweetId: String!
+  viewPermissions: [String!]!
+}
